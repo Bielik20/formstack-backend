@@ -3,14 +3,26 @@
     "description": "delete-test-01-description",
     "version": "0.0.1",
     "private": true,
+    "scripts": {
+        "build": "webpack-cli",
+        "clean": "rimraf .aws-sam .vscode",
+        "prebuild": "rimraf .aws-sam .vscode",
+        "prewatch": "rimraf .aws-sam .vscode",
+        "watch": "webpack-cli -w",
+        "test": "jest"
+    },
     "dependencies": {
-        "aws-sdk": "^2.437.0"
+        "aws-sdk": "^2.715.0",
+        "source-map-support": "^0.5.19"
     },
     "devDependencies": {
-        "jest": "^24.7.1"
-    },
-    "scripts": {
-        "test": "jest"
+        "@types/aws-lambda": "^8.10.59",
+        "@types/node": "^12.12.50",
+        "aws-sam-webpack-plugin": "^0.6.0",
+        "jest": "^24.7.1",
+        "ts-loader": "^8.0.1",
+        "typescript": "^3.9.7",
+        "webpack": "^4.43.0",
+        "webpack-cli": "^3.3.12"
     }
 }
-
