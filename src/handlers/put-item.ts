@@ -1,3 +1,6 @@
+import {
+    APIGatewayEventRequestContext, APIGatewayProxyEvent, APIGatewayProxyResult
+} from 'aws-lambda';
 import { DynamoDB } from 'aws-sdk';
 
 const tableName = process.env.SAMPLE_TABLE;
@@ -7,7 +10,7 @@ const docClient = new DynamoDB.DocumentClient({endpoint});
 /**
  * A simple example includes a HTTP post method to add one item to a DynamoDB table.
  */
-export const putItemHandler = async (event) => {
+export async function putItemHandler(event: APIGatewayProxyEvent, context: APIGatewayEventRequestContext): Promise<APIGatewayProxyResult> {
     if (event.httpMethod !== 'POST') {
         throw new Error(`postMethod only accepts POST method, you tried: ${event.httpMethod} method.`);
     }

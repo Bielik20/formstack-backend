@@ -1,3 +1,6 @@
+import {
+  APIGatewayEventRequestContext, APIGatewayProxyEvent, APIGatewayProxyResult
+} from 'aws-lambda';
 import { DynamoDB } from 'aws-sdk';
 
 const tableName = process.env.SAMPLE_TABLE;
@@ -7,7 +10,7 @@ const docClient = new DynamoDB.DocumentClient({endpoint});
 /**
  * A simple example includes a HTTP get method to get one item by id from a DynamoDB table.
  */
-export const getByIdHandler = async (event) => {
+export async function getByIdHandler(event: APIGatewayProxyEvent, context: APIGatewayEventRequestContext): Promise<APIGatewayProxyResult> {
   if (event.httpMethod !== 'GET') {
     throw new Error(`getMethod only accept GET method, you tried: ${event.httpMethod}`);
   }
