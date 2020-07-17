@@ -1,4 +1,4 @@
-import * as lambda from '../../../src/handlers/put-item';
+import * as lambda from '@src/handlers/put-item';
 import { DynamoDB } from 'aws-sdk';
 
 // This includes all tests for putItemHandler()

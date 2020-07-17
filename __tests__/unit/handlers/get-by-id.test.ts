@@ -1,4 +1,4 @@
-import * as lambda from '../../../src/handlers/get-by-id';
+import * as lambda from '@src/handlers/get-by-id';
 import { DynamoDB } from 'aws-sdk';
 
 // This includes all tests for getByIdHandler()

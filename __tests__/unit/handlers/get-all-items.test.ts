@@ -1,4 +1,4 @@
-import * as lambda from '../../../src/handlers/get-all-items';
+import * as lambda from '@src/handlers/get-all-items';
 import { DynamoDB } from 'aws-sdk';
 
 // This includes all tests for getAllItemsHandler()
