@@ -1,9 +1,10 @@
-import { DynamoDB } from 'aws-sdk';
 import {
   APIGatewayEventRequestContext,
+  APIGatewayProxyCallback,
   APIGatewayProxyEvent,
   APIGatewayProxyResult,
 } from 'aws-lambda';
+import { DynamoDB } from 'aws-sdk';
 
 const tableName = process.env.SAMPLE_TABLE;
 const endpoint = process.env.AWS_DYNAMODB_ENDPOINT;
@@ -15,6 +16,7 @@ const docClient = new DynamoDB.DocumentClient({ endpoint });
 export async function getAllItemsHandler(
   event: APIGatewayProxyEvent,
   context?: APIGatewayEventRequestContext,
+  callback?: APIGatewayProxyCallback,
 ): Promise<APIGatewayProxyResult> {
   if (event.httpMethod !== 'GET') {
     throw new Error(`getAllItems only accept GET method, you tried: ${event.httpMethod}`);

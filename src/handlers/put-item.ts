@@ -1,5 +1,6 @@
 import {
   APIGatewayEventRequestContext,
+  APIGatewayProxyCallback,
   APIGatewayProxyEvent,
   APIGatewayProxyResult,
 } from 'aws-lambda';
@@ -15,6 +16,7 @@ const docClient = new DynamoDB.DocumentClient({ endpoint });
 export async function putItemHandler(
   event: APIGatewayProxyEvent,
   context?: APIGatewayEventRequestContext,
+  callback?: APIGatewayProxyCallback,
 ): Promise<APIGatewayProxyResult> {
   if (event.httpMethod !== 'POST') {
     throw new Error(`postMethod only accepts POST method, you tried: ${event.httpMethod} method.`);

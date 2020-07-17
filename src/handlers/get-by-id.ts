@@ -1,5 +1,6 @@
 import {
   APIGatewayEventRequestContext,
+  APIGatewayProxyCallback,
   APIGatewayProxyEvent,
   APIGatewayProxyResult,
 } from 'aws-lambda';
@@ -15,6 +16,7 @@ const docClient = new DynamoDB.DocumentClient({ endpoint });
 export async function getByIdHandler(
   event: APIGatewayProxyEvent,
   context?: APIGatewayEventRequestContext,
+  callback?: APIGatewayProxyCallback,
 ): Promise<APIGatewayProxyResult> {
   if (event.httpMethod !== 'GET') {
     throw new Error(`getMethod only accept GET method, you tried: ${event.httpMethod}`);
