@@ -47,6 +47,14 @@ To start a local instance of DynamoDb run:
 docker run -p 8000:8000 amazon/dynamodb-local
 ```
 
+To bootstrap dynamodb data
+
+```bash
+./maintenance/bootstrap-dynamodb.sh
+```
+
+> You may need to assign wright permissions: `chmod u+x ./maintenance/bootstrap-dynamodb.sh`
+
 ## Unit tests
 
 Tests are defined in the `__tests__` folder in this project. Use `npm` to install the [Jest test framework](https://jestjs.io/) and run unit tests.
