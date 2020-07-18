@@ -1,4 +1,5 @@
 import { docClient } from '../helpers/document-client';
+import { ApiError } from '../helpers/error-handling';
 import { User } from '../models/user';
 
 const TableName = 'UsersTable';
@@ -10,6 +11,10 @@ export async function getUser(id: string): Promise<User> {
   };
 
   const data = await docClient.get(params).promise();
+
+  if (!data.Item) {
+    throw new ApiError(404, "User doesn't exist");
+  }
 
   return data.Item as User;
 }

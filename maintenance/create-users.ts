@@ -3,10 +3,7 @@ import { User } from '../src/models/user';
 
 export async function createUsers(): Promise<User[]> {
   const docClient = new DynamoDB.DocumentClient();
-  const users = [
-    { email: 'bill.smith@example.com', id: 'bill.smith@example.com' },
-    { email: 'john.smith@example.com', id: 'john.smith@example.com' },
-  ];
+  const users = [{ id: 'bill.smith@example.com' }, { id: 'john.smith@example.com' }];
 
   await Promise.all(
     users
