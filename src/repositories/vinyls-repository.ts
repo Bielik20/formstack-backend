@@ -33,33 +33,9 @@ export async function getVinyls(): Promise<Vinyl[]> {
 
 export async function getVinylsOfUser(userId: string): Promise<Vinyl[]> {
   const vinylIds = await getVinylIdsOfUser(userId);
-  const params = {
-    RequestItems: {
-      [TableName]: {
-        Keys: vinylIds.map((id) => ({ id })),
-      },
-    },
-  };
 
-  const data = await docClient.batchGet(params).promise();
-
-  return data.Responses[TableName].map((item) => VinylYup.cast(item));
+  return await Promise.all(vinylIds.map((id) => getVinyl(id)));
 }
-
-// export async function getVinylsOfUser(userId: string): Promise<Vinyl[]> {
-//   const vinylIds = await getVinylIdsOfUser(userId);
-//   const params = {
-//     TableName,
-//     FilterExpression: 'id IN :(ids)',
-//     ExpressionAttributeValues: {
-//       ':ids': { L: vinylIds },
-//     },
-//   };
-//
-//   const data = await docClient.scan(params).promise();
-//
-//   return data.Items.map(item => VinylYup.cast(item))
-// }
 
 export async function searchVinyls(search: string): Promise<Vinyl[]> {
   const vinyls = await getVinyls();

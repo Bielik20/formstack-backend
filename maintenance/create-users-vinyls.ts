@@ -27,5 +27,5 @@ export async function createUsersVinyls(users: User[], vinyls: Vinyl[]): Promise
 }
 
 function shouldAssign(): boolean {
-  return faker.random.number({ min: 0, max: 4 }) === 0;
+  return faker.random.number({ min: 0, max: 10 }) === 0;
 }
