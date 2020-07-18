@@ -1,6 +1,7 @@
 import { DynamoDB } from 'aws-sdk';
 import { Vinyl } from '../src/models/vinyl';
-import * as faker from 'faker';
+// @ts-ignore
+import faker from 'faker';
 
 export async function createVinyls(): Promise<Vinyl[]> {
   const docClient = new DynamoDB.DocumentClient();

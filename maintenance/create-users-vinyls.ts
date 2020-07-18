@@ -1,5 +1,6 @@
 import { DynamoDB } from 'aws-sdk';
-import * as faker from 'faker';
+// @ts-ignore
+import faker from 'faker';
 import { User } from '../src/models/user';
 import { UserVinyl } from '../src/models/user-vinyl';
 import { Vinyl } from '../src/models/vinyl';

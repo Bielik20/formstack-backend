@@ -7,7 +7,7 @@ import { createUsersVinyls } from './create-users-vinyls';
 import { createVinyls } from './create-vinyls';
 
 (async () => {
-  faker.seed(10);
+  faker.seed(1);
   config.update({
     region: 'eu-central-1',
     endpoint: 'http://localhost:8000',

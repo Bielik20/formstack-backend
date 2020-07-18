@@ -27,7 +27,7 @@ export async function getUsers(): Promise<User[]> {
 
   const data = await docClient.scan(params).promise();
 
-  return data.Items.map((user) => UserYup.cast(user));
+  return data.Items.map((item) => UserYup.cast(item));
 }
 
 export async function putUser(user: User): Promise<User> {
