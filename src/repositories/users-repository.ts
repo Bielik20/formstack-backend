@@ -1,6 +1,7 @@
 import { docClient } from '../helpers/document-client';
 import { ApiError } from '../helpers/error-handling';
 import { User } from '../models/user';
+import { UserYup } from '../models/user.yup';
 
 const TableName = 'UsersTable';
 
@@ -16,7 +17,7 @@ export async function getUser(id: string): Promise<User> {
     throw new ApiError(404, "User doesn't exist");
   }
 
-  return data.Item as User;
+  return UserYup.cast(data.Item);
 }
 
 export async function getUsers(): Promise<User[]> {
@@ -26,7 +27,7 @@ export async function getUsers(): Promise<User[]> {
 
   const data = await docClient.scan(params).promise();
 
-  return data.Items as User[];
+  return data.Items.map((user) => UserYup.cast(user));
 }
 
 export async function putUser(user: User): Promise<User> {
@@ -37,5 +38,5 @@ export async function putUser(user: User): Promise<User> {
 
   await docClient.put(params).promise();
 
-  return user;
+  return UserYup.cast(user);
 }
