@@ -1,8 +1,8 @@
-import * as lambda from '@src/handlers/users/put-item';
+import * as lambda from '@src/handlers/users/put-user';
 import { DynamoDB } from 'aws-sdk';
 
-// This includes all tests for putItemHandler()
-describe('Test putItemHandler', () => {
+// This includes all tests for putUserHandler()
+describe('Test putUserHandler', () => {
   let putSpy;
 
   // Test one-time setup and teardown, see more in https://jestjs.io/docs/en/setup-teardown
@@ -17,7 +17,7 @@ describe('Test putItemHandler', () => {
     putSpy.mockRestore();
   });
 
-  // This test invokes putItemHandler() and compare the result
+  // This test invokes putUserHandler() and compare the result
   it('should add id to the table', async () => {
     const returnedItem = { id: 'id1', name: 'name1' };
 
@@ -31,8 +31,8 @@ describe('Test putItemHandler', () => {
       body: '{"id": "id1","name": "name1"}',
     };
 
-    // Invoke putItemHandler()
-    const result = await lambda.putItemHandler(event as any, {} as any, {} as any);
+    // Invoke putUserHandler()
+    const result = await lambda.putUserHandler(event as any, {} as any, {} as any);
     const expectedResult = {
       statusCode: 200,
       body: JSON.stringify({ id: 'id1' }),

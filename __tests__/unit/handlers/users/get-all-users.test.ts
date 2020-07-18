@@ -1,8 +1,8 @@
-import * as lambda from '@src/handlers/users/get-all-items';
+import * as lambda from '@src/handlers/users/get-all-users';
 import { DynamoDB } from 'aws-sdk';
 
-// This includes all tests for getAllItemsHandler()
-describe('Test getAllItemsHandler', () => {
+// This includes all tests for getAllUsersHandler()
+describe('Test getAllUsersHandler', () => {
   let scanSpy;
 
   // Test one-time setup and teardown, see more in https://jestjs.io/docs/en/setup-teardown
@@ -30,7 +30,7 @@ describe('Test getAllItemsHandler', () => {
     };
 
     // Invoke helloFromLambdaHandler()
-    const result = await lambda.getAllItemsHandler(event as any, {} as any, {} as any);
+    const result = await lambda.getAllUsersHandler(event as any, {} as any, {} as any);
 
     const expectedResult = {
       statusCode: 200,

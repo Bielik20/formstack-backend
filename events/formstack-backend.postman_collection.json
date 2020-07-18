@@ -1,0 +1,154 @@
+{
+  "info": {
+    "_postman_id": "03960ddf-3254-4fec-b870-528c33032ca6",
+    "name": "formstack-backend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "http://127.0.0.1:3000/users/",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Trust bill.smith@example.com",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"id\": \"id1\", \"email\": \"event@example.com\" }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:3000/users/",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "3000",
+          "path": ["users", ""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://127.0.0.1:3000/vinyls?search=vitae",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Trust 1",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:3000/vinyls?search=vitae",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "3000",
+          "path": ["vinyls"],
+          "query": [
+            {
+              "key": "search",
+              "value": "vitae"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://127.0.0.1:3000/vinyls/my",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Trust bill.smith@example.com",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:3000/vinyls/my",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "3000",
+          "path": ["vinyls", "my"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://127.0.0.1:3000/vinyls/{id}",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Trust bill.smith@example.com",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:3000/vinyls/035006da-b990-4b0e-ab79-a15649291f53",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "3000",
+          "path": ["vinyls", "035006da-b990-4b0e-ab79-a15649291f53"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://127.0.0.1:3000/vinyls/{id}",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "type": "text",
+            "value": "Trust bill.smith@example.com"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:3000/vinyls/035006da-b990-4b0e-ab79-a15649291f53",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "3000",
+          "path": ["vinyls", "035006da-b990-4b0e-ab79-a15649291f53"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://127.0.0.1:3000/vinyls/{id}",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "type": "text",
+            "value": "Trust bill.smith@example.com"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:3000/vinyls/035006da-b990-4b0e-ab79-a15649291f53",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "3000",
+          "path": ["vinyls", "035006da-b990-4b0e-ab79-a15649291f53"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "protocolProfileBehavior": {}
+}

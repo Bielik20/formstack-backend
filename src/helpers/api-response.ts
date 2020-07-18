@@ -4,6 +4,10 @@ export function createErrorResponse(status: number, message: string): APIGateway
   return createApiResponse(status, { message });
 }
 
+export function create204Response(): APIGatewayProxyResult {
+  return createApiResponse(204);
+}
+
 export function create200Response(body?: any): APIGatewayProxyResult {
   return createApiResponse(200, body);
 }

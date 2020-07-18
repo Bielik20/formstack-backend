@@ -26,68 +26,136 @@ Globals:
 # Resources declares the AWS resources that you want to include in the stack
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
 Resources:
-  # Each Lambda function is defined by properties:
-  # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
-
-  # This is a Lambda function config associated with the source code: get-all-items.js
   getAllUsersFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: get-all-items.getAllItemsHandler
+      Handler: get-all-users.getAllUsersHandler
       CodeUri: src/handlers/users/
       Description: A simple example includes a HTTP get method to get all items from a DynamoDB table.
       Policies:
-        # Give Create/Read/Update/Delete Permissions to the Table
         - DynamoDBCrudPolicy:
             TableName: !Ref UsersTable
       Events:
         Api:
           Type: Api
           Properties:
-            Path: /
+            Path: /users/
             Method: GET
-  # Each Lambda function is defined by properties:
-  # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
 
-  # This is a Lambda function config associated with the source code: get-by-id.js
   geUsertByIdFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: get-by-id.getByIdHandler
+      Handler: get-user-by-id.getUserByIdHandler
       CodeUri: src/handlers/users/
       Description: A simple example includes a HTTP get method to get one item by id from a DynamoDB table.
       Policies:
-        # Give Create/Read/Update/Delete Permissions to the Table
         - DynamoDBCrudPolicy:
             TableName: !Ref UsersTable
       Events:
         Api:
           Type: Api
           Properties:
-            Path: /{id}
+            Path: /users/{id}
             Method: GET
-  # Each Lambda function is defined by properties:
-  # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
 
-  # This is a Lambda function config associated with the source code: put-item.js
   putUserFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: put-item.putItemHandler
+      Handler: put-user.putUserHandler
       CodeUri: src/handlers/users/
       Description: A simple example includes a HTTP post method to add one item to a DynamoDB table.
       Policies:
-        # Give Create/Read/Update/Delete Permissions to the Table
         - DynamoDBCrudPolicy:
             TableName: !Ref UsersTable
       Events:
         Api:
           Type: Api
           Properties:
-            Path: /
+            Path: /users/
             Method: POST
-  # Simple syntax to create a DynamoDB table with a single attribute primary key, more in
-  # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlesssimpletable
+
+  searchVinylsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: search-vinyls.searchVinylsHandler
+      CodeUri: src/handlers/vinyls/
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref VinylsTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /vinyls
+            Method: GET
+
+  getMyVinylsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: get-my-vinyls.getMyVinylsHandler
+      CodeUri: src/handlers/vinyls/
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref VinylsTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UsersTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UsersVinylsTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /vinyls/my
+            Method: GET
+
+  getVinylByIdFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: get-vinyl-by-id.getVinylByIdHandler
+      CodeUri: src/handlers/vinyls/
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref VinylsTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /vinyls/{id}
+            Method: GET
+
+  addVinylToMyCollectionFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: add-vinyl-to-my-collection.addVinylToMyCollectionHandler
+      CodeUri: src/handlers/vinyls/
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref VinylsTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UsersTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UsersVinylsTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /vinyls/{id}
+            Method: POST
+
+  removeVinylFromMyCollectionFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: remove-vinyl-from-my-collection.removeVinylFromMyCollectionHandler
+      CodeUri: src/handlers/vinyls/
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref VinylsTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /vinyls/{id}
+            Method: DELETE
 
 Outputs:
   WebEndpoint:

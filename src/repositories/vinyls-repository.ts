@@ -37,11 +37,12 @@ export async function getVinylsOfUser(userId: string): Promise<Vinyl[]> {
   return await Promise.all(vinylIds.map((id) => getVinyl(id)));
 }
 
+// elastic search doesn't work on localhost, let's pretend it is it
 export async function searchVinyls(search: string): Promise<Vinyl[]> {
   const vinyls = await getVinyls();
   const searchLower = search.toLowerCase();
 
   return vinyls.filter((vinyl) =>
-    `${vinyl.artist} ${vinyl.cover} ${vinyl.album}`.toLowerCase().includes(searchLower),
+    `${vinyl.artist} ${vinyl.album}`.toLowerCase().includes(searchLower),
   );
 }
