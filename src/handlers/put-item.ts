@@ -4,11 +4,9 @@ import {
   APIGatewayProxyEvent,
   APIGatewayProxyResult,
 } from 'aws-lambda';
-import { DynamoDB } from 'aws-sdk';
-
-const tableName = 'UsersTable';
-const endpoint = process.env.AWS_DYNAMODB_ENDPOINT;
-const docClient = new DynamoDB.DocumentClient({ endpoint });
+import { create200Response } from '../helpers/api-response';
+import { logInvoke, logResponse } from '../helpers/logger';
+import { putUser } from '../repositories/users-repository';
 
 /**
  * A simple example includes a HTTP post method to add one item to a DynamoDB table.
@@ -18,34 +16,13 @@ export async function putItemHandler(
   context?: APIGatewayEventRequestContext,
   callback?: APIGatewayProxyCallback,
 ): Promise<APIGatewayProxyResult> {
-  if (event.httpMethod !== 'POST') {
-    throw new Error(`postMethod only accepts POST method, you tried: ${event.httpMethod} method.`);
-  }
-  // All log statements are written to CloudWatch
-  console.info('received:', event);
+  logInvoke(event);
 
-  // Get id and name from the body of the request
   const body = JSON.parse(event.body);
-  const id = body.id;
-  const email = body.email;
+  const item = await putUser(body);
+  const response = create200Response(item);
 
-  // Creates a new item, or replaces an old item with a new item
-  // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#put-property
-  const params = {
-    TableName: tableName,
-    Item: { id, email },
-  };
+  logResponse(event, response);
 
-  const result = await docClient.put(params).promise();
-
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify(body),
-  };
-
-  // All log statements are written to CloudWatch
-  console.info(
-    `response from: ${event.path} statusCode: ${response.statusCode} body: ${response.body}`,
-  );
   return response;
 }

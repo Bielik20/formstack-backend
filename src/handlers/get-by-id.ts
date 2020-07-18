@@ -4,11 +4,9 @@ import {
   APIGatewayProxyEvent,
   APIGatewayProxyResult,
 } from 'aws-lambda';
-import { DynamoDB } from 'aws-sdk';
-
-const tableName = 'UsersTable';
-const endpoint = process.env.AWS_DYNAMODB_ENDPOINT;
-const docClient = new DynamoDB.DocumentClient({ endpoint });
+import { create200Response } from '../helpers/api-response';
+import { logInvoke, logResponse } from '../helpers/logger';
+import { getUser } from '../repositories/users-repository';
 
 /**
  * A simple example includes a HTTP get method to get one item by id from a DynamoDB table.
@@ -18,32 +16,13 @@ export async function getByIdHandler(
   context?: APIGatewayEventRequestContext,
   callback?: APIGatewayProxyCallback,
 ): Promise<APIGatewayProxyResult> {
-  if (event.httpMethod !== 'GET') {
-    throw new Error(`getMethod only accept GET method, you tried: ${event.httpMethod}`);
-  }
-  // All log statements are written to CloudWatch
-  console.info('received:', event);
+  logInvoke(event);
 
-  // Get id from pathParameters from APIGateway because of `/{id}` at template.yml
   const id = event.pathParameters.id;
+  const item = await getUser(id);
+  const response = create200Response(item);
 
-  // Get the item from the table
-  // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#get-property
-  const params = {
-    TableName: tableName,
-    Key: { id },
-  };
-  const data = await docClient.get(params).promise();
-  const item = data.Item;
+  logResponse(event, response);
 
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify(item),
-  };
-
-  // All log statements are written to CloudWatch
-  console.info(
-    `response from: ${event.path} statusCode: ${response.statusCode} body: ${response.body}`,
-  );
   return response;
 }
