@@ -1,4 +1,4 @@
-import * as lambda from '@src/handlers/put-item';
+import * as lambda from '@src/handlers/users/put-item';
 import { DynamoDB } from 'aws-sdk';
 
 // This includes all tests for putItemHandler()
@@ -32,10 +32,10 @@ describe('Test putItemHandler', () => {
     };
 
     // Invoke putItemHandler()
-    const result = await lambda.putItemHandler(event as any);
+    const result = await lambda.putItemHandler(event as any, {} as any, {} as any);
     const expectedResult = {
       statusCode: 200,
-      body: JSON.stringify(returnedItem),
+      body: JSON.stringify({ id: 'id1' }),
     };
 
     // Compare the result with the expected result

@@ -25,7 +25,6 @@ async function ensureUser(userId: string): Promise<User> {
 
     return user;
   } catch (e) {
-    console.log('bielik', e);
     if (e instanceof ApiError && e.httpCode === 404) {
       const user: User = {
         id: userId,

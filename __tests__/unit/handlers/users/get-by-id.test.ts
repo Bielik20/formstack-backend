@@ -1,4 +1,4 @@
-import * as lambda from '@src/handlers/get-by-id';
+import * as lambda from '@src/handlers/users/get-by-id';
 import { DynamoDB } from 'aws-sdk';
 
 // This includes all tests for getByIdHandler()
@@ -34,7 +34,7 @@ describe('Test getByIdHandler', () => {
     };
 
     // Invoke getByIdHandler()
-    const result = await lambda.getByIdHandler(event as any);
+    const result = await lambda.getByIdHandler(event as any, {} as any, {} as any);
 
     const expectedResult = {
       statusCode: 200,
