@@ -1,7 +1,7 @@
 import { docClient } from '../helpers/document-client';
 import { User } from '../models/user';
 
-const TableName = 'UsersTable'; // tslint:disable-line:variable-name
+const TableName = 'UsersTable';
 
 export async function getUser(id: string): Promise<User> {
   const params = {

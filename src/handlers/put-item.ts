@@ -5,7 +5,10 @@ import {
   APIGatewayProxyResult,
 } from 'aws-lambda';
 import { create200Response } from '../helpers/api-response';
+import { handleError } from '../helpers/error-handling';
 import { logInvoke, logResponse } from '../helpers/logger';
+import { validateBody } from '../helpers/validate-body';
+import { UserYup } from '../models/user.yup';
 import { putUser } from '../repositories/users-repository';
 
 /**
@@ -16,13 +19,17 @@ export async function putItemHandler(
   context?: APIGatewayEventRequestContext,
   callback?: APIGatewayProxyCallback,
 ): Promise<APIGatewayProxyResult> {
-  logInvoke(event);
+  try {
+    logInvoke(event);
 
-  const body = JSON.parse(event.body);
-  const item = await putUser(body);
-  const response = create200Response(item);
+    const body = await validateBody(event, UserYup);
+    const item = await putUser(body);
+    const response = create200Response(item);
 
-  logResponse(event, response);
+    logResponse(event, response);
 
-  return response;
+    return response;
+  } catch (e) {
+    return handleError(e);
+  }
 }

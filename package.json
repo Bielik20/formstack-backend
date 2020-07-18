@@ -18,13 +18,15 @@
   },
   "dependencies": {
     "aws-sdk": "^2.715.0",
-    "source-map-support": "^0.5.19"
+    "source-map-support": "^0.5.19",
+    "yup": "^0.29.1"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.59",
     "@types/faker": "^4.1.12",
     "@types/jest": "^26.0.4",
     "@types/node": "^12.12.50",
+    "@types/yup": "^0.29.3",
     "aws-sam-webpack-plugin": "^0.6.0",
     "faker": "^4.1.0",
     "husky": "^4.2.5",
