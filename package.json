@@ -22,9 +22,11 @@
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.59",
+    "@types/faker": "^4.1.12",
     "@types/jest": "^26.0.4",
     "@types/node": "^12.12.50",
     "aws-sam-webpack-plugin": "^0.6.0",
+    "faker": "^4.1.0",
     "husky": "^4.2.5",
     "jest": "^24.7.1",
     "lint-staged": "^10.2.11",

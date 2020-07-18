@@ -1,44 +1,23 @@
-import { DynamoDB, config } from 'aws-sdk';
-
-config.update({
-  region: 'eu-central-1',
-  endpoint: 'http://localhost:8000',
-} as any);
-
-const ddb = new DynamoDB();
-const docClient = new DynamoDB.DocumentClient();
-
-async function createUsers(): Promise<void> {
-  const usersTable = {
-    TableName: 'UsersTable',
-    KeySchema: [
-      { AttributeName: 'id', KeyType: 'HASH' },
-      { AttributeName: 'email', KeyType: 'RANGE' },
-    ],
-    AttributeDefinitions: [
-      { AttributeName: 'id', AttributeType: 'S' },
-      { AttributeName: 'email', AttributeType: 'S' },
-    ],
-    ProvisionedThroughput: {
-      ReadCapacityUnits: 10,
-      WriteCapacityUnits: 10,
-    },
-  };
-
-  await ddb.createTable(usersTable).promise();
-
-  const users = [
-    { email: 'bill.smith@example.com', id: '1' },
-    { email: 'john.smith@example.com', id: '2' },
-  ];
-
-  await Promise.all(
-    users
-      .map((user) => ({ TableName: 'UsersTable', Item: user }))
-      .map((doc) => docClient.put(doc).promise()),
-  );
-}
+import { config } from 'aws-sdk';
+// @ts-ignore
+import faker from 'faker';
+import { createTables } from './create-tables';
+import { createUsers } from './create-users';
+import { createUsersVinyls } from './create-users-vinyls';
+import { createVinyls } from './create-vinyls';
 
 (async () => {
-  await createUsers();
+  faker.seed(10);
+  config.update({
+    region: 'eu-central-1',
+    endpoint: 'http://localhost:8000',
+  } as any);
+
+  await createTables();
+
+  const users = await createUsers();
+  const vinyls = await createVinyls();
+  const usersVinyls = await createUsersVinyls(users, vinyls);
+
+  console.log(users, vinyls, usersVinyls);
 })();
