@@ -6,7 +6,7 @@ import {
 } from 'aws-lambda';
 import { DynamoDB } from 'aws-sdk';
 
-const tableName = process.env.SAMPLE_TABLE;
+const tableName = 'UsersTable';
 const endpoint = process.env.AWS_DYNAMODB_ENDPOINT;
 const docClient = new DynamoDB.DocumentClient({ endpoint });
 

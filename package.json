@@ -13,7 +13,8 @@
     "lint": "tslint ./src/**/*.ts",
     "lint:fix": "tslint --fix ./src/**/*.ts -t verbose",
     "prettier": "prettier --write '**/*.{ts,js,json,css,scss,html}'",
-    "format": "npm run prettier && npm run lint:fix"
+    "format": "npm run prettier && npm run lint:fix",
+    "dynamodb-bootstrap": "npx ts-node ./maintenance/dynamodb-bootstrap.ts"
   },
   "dependencies": {
     "aws-sdk": "^2.715.0",

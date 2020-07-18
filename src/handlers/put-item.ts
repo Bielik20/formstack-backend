@@ -6,7 +6,7 @@ import {
 } from 'aws-lambda';
 import { DynamoDB } from 'aws-sdk';
 
-const tableName = process.env.SAMPLE_TABLE;
+const tableName = 'UsersTable';
 const endpoint = process.env.AWS_DYNAMODB_ENDPOINT;
 const docClient = new DynamoDB.DocumentClient({ endpoint });
 
@@ -27,13 +27,13 @@ export async function putItemHandler(
   // Get id and name from the body of the request
   const body = JSON.parse(event.body);
   const id = body.id;
-  const name = body.name;
+  const email = body.email;
 
   // Creates a new item, or replaces an old item with a new item
   // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#put-property
   const params = {
     TableName: tableName,
-    Item: { id, name },
+    Item: { id, email },
   };
 
   const result = await docClient.put(params).promise();
