@@ -37,8 +37,6 @@ To bootstrap dynamodb data
 npm run dynamodb-bootstrap
 ```
 
-> You may need to assign wright permissions: `chmod u+x ./maintenance/bootstrap-dynamodb.sh`
-
 > Docker's instance doesn't persist data, so after you break your docker run you need to run bootstrap script again.
 
 ### Testing
