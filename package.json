@@ -17,7 +17,7 @@
     "dynamodb-bootstrap": "npx ts-node ./maintenance/dynamodb-bootstrap.ts"
   },
   "dependencies": {
-    "aws-sdk": "^2.715.0",
+    "aws-sdk": "^2.814.0",
     "source-map-support": "^0.5.19",
     "yup": "^0.29.1"
   },
